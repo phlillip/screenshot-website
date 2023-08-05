@@ -1,0 +1,23 @@
+{
+  "name": "screenshot-website",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "Screenshot every page of a website using the sitemap",
+  "keywords": ["screenshot", "scraping"],
+  "type": "module",
+  "author": [{
+    "name": "Phillip David Penny",
+    "email": "phillippenny@gmail.com",
+    "url": "https://naturalmohican.com"
+  }],
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phlillip/example.git"
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+  }
+}
