@@ -38,4 +38,12 @@ https.get(url, (res) => {
 
 }
 
-runScript("https://www.aura.life/sitemap.xml");
+let domain = process.argv.slice(2);
+if(domain){
+  let sitemapURL = "https://www." + domain + "/sitemap.xml";
+runScript(sitemapURL)
+} else {
+  console.log("No sitemap found at " + domain + "/sitemap.xml")
+  exit;
+}
+
