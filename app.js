@@ -11,7 +11,7 @@ import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 const https = require('https');
 
-function runScript (url){
+function runScript (url,limit){
 
 // REMOTE:
 https.get(url, (res) => {
@@ -21,7 +21,7 @@ https.get(url, (res) => {
   });
   res.on('end', () => {
     let urls = extractURLs(data);
-    getPics(urls);
+    getPics(urls,limit);
   });
 });
 
@@ -38,10 +38,11 @@ https.get(url, (res) => {
 
 }
 
-let domain = process.argv.slice(2);
+let domain = process.argv[2];
+let limit = process.argv[3];
 if(domain){
   let sitemapURL = "https://www." + domain + "/sitemap.xml";
-runScript(sitemapURL)
+runScript(sitemapURL,limit)
 } else {
   console.log("No sitemap found at " + domain + "/sitemap.xml")
   exit;

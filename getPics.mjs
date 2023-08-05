@@ -6,13 +6,14 @@ const require = createRequire(import.meta.url);
 const fs = require('fs');
 const puppeteer = require('puppeteer');
 
-let getPics =  async function getPic(urls) {
+let getPics =  async function getPic(urls,limit) {
   const browser = await puppeteer.launch({headless: true});
   const page = await browser.newPage();
 
+  console.log("Generating " + limit + " screenshot(s)...");
+
   let x = 1;
   for (const url of urls){
-    if(x < 4){
       let imageFileName = url.split("https://www.")[1];
       imageFileName = imageFileName.replaceAll("/","_") + ".png";
       let folderName = imageFileName.split("/")[0].split(".")[0];
@@ -28,7 +29,6 @@ let getPics =  async function getPic(urls) {
       }
       
       await page.goto(url);
-      
       await waitTillHTMLRendered(page);
 
       //Remove cookie banner
@@ -42,8 +42,12 @@ let getPics =  async function getPic(urls) {
 
       await page.setViewport({width: 1920, height: 1080})
       await page.screenshot({path: path});
+
+      x++;
+
+    if(limit && (x > limit)){
+      break;
     }
-    x++;
 }
 
   await browser.close();
