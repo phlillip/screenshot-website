@@ -7,7 +7,7 @@ const fs = require('fs');
 const puppeteer = require('puppeteer');
 
 let getPics =  async function getPic(urls,limit) {
-  const browser = await puppeteer.launch({headless: true});
+  const browser = await puppeteer.launch({headless: "new"});
   const page = await browser.newPage();
 
   let number,

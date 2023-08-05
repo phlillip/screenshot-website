@@ -15,7 +15,9 @@ function runScript (url,limit){
 
 // REMOTE:
 https.get(url, (res) => {
-  let data = '';
+  if(res.statusCode === 200) {
+        console.log('Page exists!');
+        let data = '';
   res.on('data', (chunk) => {
     data += chunk;
   });
@@ -23,6 +25,11 @@ https.get(url, (res) => {
     let urls = extractURLs(data);
     getPics(urls,limit);
   });
+    } else {
+      console.log("Sitemap doesn't exist at https://www." + domain + "/sitemap.xml");
+      console.log("Add the real sitemap URL to the end of your domain and try again.");
+      process.exit();
+    }
 });
 
 // LOCAL:
@@ -40,11 +47,17 @@ https.get(url, (res) => {
 
 let domain = process.argv[2];
 let limit = process.argv[3];
+let sitemapURL;
 if(domain){
-  let sitemapURL = "https://www." + domain + "/sitemap.xml";
-runScript(sitemapURL,limit)
+  if(domain.includes("/")){
+    sitemapURL = "https://www." + domain;
+  } else {
+    sitemapURL = "https://www." + domain + "/sitemap.xml";
+  }
+  console.log("sitemapURL", sitemapURL);
+runScript(sitemapURL,limit);
 } else {
-  console.log("No sitemap found at " + domain + "/sitemap.xml")
+  console.log("No domain provided...");
   exit;
 }
 
