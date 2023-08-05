@@ -10,7 +10,19 @@ let getPics =  async function getPic(urls,limit) {
   const browser = await puppeteer.launch({headless: true});
   const page = await browser.newPage();
 
-  console.log("Generating " + limit + " screenshot(s)...");
+  let number,
+  plural = "screenshot";
+  if(limit){
+    number = limit;
+    if(limit > 1){
+      plural = "screenshots";
+    }
+  } else {
+    number = "all";
+    plural = "screenshots";
+  }
+
+  console.log("Generating " + number + " " + plural + "...");
 
   let x = 1;
   for (const url of urls){
