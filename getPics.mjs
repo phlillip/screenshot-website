@@ -16,6 +16,7 @@ let getPics =  async function getPic(urls) {
       let imageFileName = url.split("https://www.")[1];
       imageFileName = imageFileName.replaceAll("/","_") + ".png";
       let folderName = imageFileName.split("/")[0].split(".")[0];
+      folderName = "_" + folderName;
 
       let path = folderName + "/" + imageFileName;
 
